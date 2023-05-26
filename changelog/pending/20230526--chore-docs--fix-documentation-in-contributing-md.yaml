@@ -1,0 +1,4 @@
+changes:
+- type: patch
+  scope: chore/docs
+  description: Fix documentation in contributing.md
