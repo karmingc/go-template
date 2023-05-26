@@ -1,0 +1,68 @@
+name: Tests
+
+on:
+  workflow_call:
+    inputs:
+      skip:
+        required: false
+        description: "Skip the changelog comment"
+        type: boolean
+        default: false
+jobs:
+  pre-commit:
+    name: Pre-commit
+    if: ${{ !inputs.skip }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11.2"
+          cache: "pip"
+
+      - name: Install pre-commit
+        run: python -m pip install pre-commit
+
+      - name: Install pre-commit hooks
+        run: pre-commit install
+
+      - name: Run pre-commit
+        run: pre-commit run --all-files
+
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v4
+        with:
+          go-version: "1.20"
+          cache: true
+
+      - uses: actions/checkout@v3
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
+          version: v1.29
+
+          # Optional: working directory, useful for monorepos
+          # working-directory: somedir
+
+          # Optional: golangci-lint command line arguments.
+          # args: --issues-exit-code=0
+
+          # Optional: show only new issues if it's a pull request. The default value is `false`.
+          # only-new-issues: true
+
+          # Optional: if set to true then the all caching functionality will be complete disabled,
+          #           takes precedence over all other caching options.
+          # skip-cache: true
+
+          # Optional: if set to true then the action don't cache or restore ~/go/pkg.
+          # skip-pkg-cache: true
+
+          # Optional: if set to true then the action don't cache or restore ~/.cache/go-build.
+          # skip-build-cache: true
