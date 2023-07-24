@@ -1,4 +1,0 @@
-changes:
-- type: patch
-  scope: fix/developer experience,ci/cd
-  description: Add proper hook id to golangci-lint
