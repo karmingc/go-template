@@ -1,4 +1,0 @@
-changes:
-- type: patch
-  scope: feat/developer experience,tests
-  description: Add custom linters to golangci-lint
