@@ -1,0 +1,17 @@
+linters:
+  enable:
+    - errname
+    - errorlint
+    - exhaustive
+    - exhaustruct
+    - gocheckcompilerdirectives
+    - gochecknoglobals
+    - goconst
+    - goerr113
+    - gosec
+    - godot
+    - misspell
+    - stylecheck
+    - tagliatelle
+    - unparam
+    - revive

@@ -1,3 +1,7 @@
+.PHONE: lint
+lint: ## Lint the code with golangci-lint
+	docker run --rm -v $$(pwd):/app -w /app golangci/golangci-lint golangci-lint run -v
+
 .PHONY: changelog
 changelog: ## Generates a changelog with the template under ./changelog/config.yaml.
 	go run github.com/aaronfriel/go-change@v0.1.2 create
