@@ -20,10 +20,7 @@ set -e
 if [ "$SUCCESS" = "0" ]; then
   >&2 echo "::debug::Found previous GitHub release ${PREVIOUS_VERSION}"
   echo -n "${PREVIOUS_VERSION}"
-elif cat "${STDERR}" | grep -q 'HTTP 404: Not Found'; then
+else
   >&2 echo "::warn::No previous release ($(cat "${STDERR}")), using initial commit"
   git rev-list --max-parents=0 HEAD
-else
-  >&2 echo "::error::No previous release ($(cat "${STDERR}"))"
-  exit 1
 fi
